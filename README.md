@@ -1,4 +1,4 @@
-Chrome extension that once you hover over any Premier Elo shows the CS:GO Rank Equivalent on [Leetify](https://leetify.com/).
+Chrome extension that on hover any Premier Elo shows the CS:GO Rank Equivalent on [Leetify](https://leetify.com/).
 
 Getting data from [Where is Global Elite?](https://whereisglobal.vercel.app)
 
