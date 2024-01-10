@@ -47,8 +47,11 @@ const createPopup = (rank, element) => {
     const position = element.getBoundingClientRect();    
 
     const elementHTML = `
-        <div style="z-index: 99999; background-color: black; color: white; position: absolute; top: ${position.top - 50}px; left: ${position.left}px;">
-            <img style="width: 90px" src="https://whereisglobal.vercel.app/matchmaking_${rank}.png"></img>
+        <div style="z-index: 998; position: absolute; top: ${position.top - 55}px; left: ${position.left-25}px;">
+            <div style="background-color: black; padding: 5px 7px; border-radius: 8px;">
+                <img style="z-index: 999; position: relative; width: 90px" src="https://whereisglobal.vercel.app/matchmaking_${rank}.png"></img>
+            </div>
+            <div style="z-index: 998; background-color: black; width: 10px; height: 10px; transform: rotate(45deg); position: relative; top: -5px; left: 48px"></div>
         </div> 
     `;
 
