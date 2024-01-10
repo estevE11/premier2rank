@@ -13,6 +13,7 @@ const getRankFromElo = (ratingContainer) => {
 
 const showPopup = async (key, element) => {
     const csgorank = await getRankFromElo(element);
+    if(!hoverTracker[key]) return;
     const popup = createPopup(csgorank, element);
     document.body.appendChild(popup);
     popupTracker[key] = popup;
@@ -27,7 +28,6 @@ observe("app-matches-list", (mutations) => {
             if (hoverTracker[key]) return;
             hoverTracker[key] = true;
             setTimeout(async function () {
-                if (!hoverTracker[key]) return;
                 await showPopup(key, element);
             }, hoverDelay);
         })
