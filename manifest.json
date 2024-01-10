@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Premier 2 Rank",
+    "description": "Showing CS:GO rank equivalent to CS2 premier elo",
+    "version": "1.1.1",
+    "content_scripts": [
+        {
+            "js": [
+                "observer-setup.js",
+                "matches.js"
+            ],
+            "matches": [
+                "https://leetify.com/*"
+            ]
+        }
+    ]
+}
