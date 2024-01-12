@@ -19,7 +19,7 @@ const showPopup = async (key, element) => {
     popupTracker[key] = popup;
 }
 
-observe("app-matches-list", (mutations) => {
+observe("main", (mutations) => {
     const ratings = document.getElementsByClassName("cs-rating");
     hoverTracker = new Array(ratings.length);
     for (let key in ratings) {
