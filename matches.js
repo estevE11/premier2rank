@@ -2,17 +2,22 @@ const hoverDelay = 100;
 let hoverTracker = [];
 let popupTracker = [];
 
-const getRankFromElo = (ratingContainer) => {
-    return new Promise((resolve, reject) => {
-        const lg = ratingContainer.getElementsByClassName("label-large ng-star-inserted")[0].innerHTML; const sm = ratingContainer.getElementsByClassName("label-small ng-star-inserted")[0].innerHTML; const elo =  parseInt(lg.substring(0, lg.length-1) + sm);
-        fetch("https://whereisglobal.vercel.app/api/rank?elo=" + elo).then((data) => data.json()).then((data) => {
-            resolve(data.rank);
-        })
-    });
-}
+const mappings = {
+    "leetify": {
+        "getRankFromElo": leetifyEloToRank,
+        "containerClass": "cs-rating"
+    },
+};
+
+const KEY = (() => {
+    const url = window.location.href;
+    for (let key in mappings) {
+        if (url.includes(key)) return key;
+    }
+})();
 
 const showPopup = async (key, element) => {
-    const csgorank = await getRankFromElo(element);
+    const csgorank = await mappings[KEY].getRankFromElo(element);
     if(!hoverTracker[key]) return;
     const popup = createPopup(csgorank, element);
     document.body.appendChild(popup);
@@ -20,7 +25,7 @@ const showPopup = async (key, element) => {
 }
 
 observe("main", (mutations) => {
-    const ratings = document.getElementsByClassName("cs-rating");
+    const ratings = document.getElementsByClassName(mappings[KEY].containerClass);
     hoverTracker = new Array(ratings.length);
     for (let key in ratings) {
         const element = ratings[key];
