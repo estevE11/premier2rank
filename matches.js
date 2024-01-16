@@ -37,6 +37,7 @@ observe(mappings[KEY].mainContainerQuery, (mutations) => {
     hoverTracker = new Array(ratings.length);
     for (let key in ratings) {
         const element = ratings[key];
+        if(!element.addEventListener) continue;
         element.addEventListener("mouseover", function() {
             if (hoverTracker[key]) return;
             hoverTracker[key] = true;
