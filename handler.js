@@ -2,6 +2,9 @@ const hoverDelay = 100;
 let hoverTracker = [];
 let popupTracker = [];
 
+let eloPerRank;
+
+
 const mappings = {
     "leetify": {
         "mainContainerQuery": "main",
@@ -38,29 +41,6 @@ const showPopup = async (key, element) => {
     popupTracker[key] = popup;
 }
 
-observe(mappings[KEY].mainContainerQuery, (mutations) => {
-    const ratings = document.getElementsByClassName(mappings[KEY].containerClass);
-    hoverTracker = new Array(ratings.length);
-    for (let key in ratings) {
-        const element = ratings[key];
-        if(!element.addEventListener) continue;
-        element.addEventListener("mouseover", function() {
-            if (hoverTracker[key]) return;
-            hoverTracker[key] = true;
-            setTimeout(async function () {
-                await showPopup(key, element);
-            }, hoverDelay);
-        })
-
-        element.addEventListener("mouseleave", function() {
-            hoverTracker[key] = false;
-            if (popupTracker[key]) {
-                mappings[KEY].getPopupParent().removeChild(popupTracker[key]);
-                popupTracker[key] = undefined;
-            }
-        })
-    }
-});
 
 
 const createPopup = (rank, element) => {
@@ -81,3 +61,69 @@ const createPopup = (rank, element) => {
     temp.innerHTML = elementHTML.trim();
     return temp.children[0];
 }
+
+const calcRank = (elo) => {
+    console.log("bueans")
+    if(!eloPerRank) return 'unranked';
+    let currentRank = -1;
+    const ranks = Object.keys(eloPerRank);
+    for (let i = 0; i < ranks.length; i++) {
+        if (eloPerRank[ranks[i]] > elo) {
+            currentRank = i;
+            continue;
+        }
+        currentRank = i;
+        break;
+    }
+
+    return ranks[currentRank];
+}
+
+window.onload = async () => {
+    observe(mappings[KEY].mainContainerQuery, (mutations) => {
+        const ratings = document.getElementsByClassName(mappings[KEY].containerClass);
+        hoverTracker = new Array(ratings.length);
+        for (let key in ratings) {
+            const element = ratings[key];
+            if(!element.addEventListener) continue;
+            element.addEventListener("mouseover", function() {
+                if (hoverTracker[key]) return;
+                hoverTracker[key] = true;
+                setTimeout(async function () {
+                    await showPopup(key, element);
+                }, hoverDelay);
+            })
+
+            element.addEventListener("mouseleave", function() {
+                hoverTracker[key] = false;
+                if (popupTracker[key]) {
+                    mappings[KEY].getPopupParent().removeChild(popupTracker[key]);
+                    popupTracker[key] = undefined;
+                }
+            })
+        }
+    });
+
+    eloPerRank = await (() => {
+        return new Promise((resolve, reject) => {
+            const cached = localStorage.getItem("eloPerRank");
+            if (cached) {
+                const timestamp = new Date(parseInt(localStorage.getItem("eloPerRankTimestamp")));
+                // Check if since last update, a sunday has passed
+                let now = new Date();
+                now.setHours(0, 0, 0, 0);
+                timestamp.setHours(0, 0, 0, 0);
+                now.setDate(now.getDate() - now.getDay());
+                timestamp.setDate(timestamp.getDate() - timestamp.getDay());
+                let shouldUpdate = now > timestamp;
+
+                if (!shouldUpdate) return resolve(JSON.parse(cached));
+            }
+            fetch("https://whereisglobal.vercel.app/api/ranks").then(data => data.json()).then(data => {
+                localStorage.setItem("eloPerRank", JSON.stringify(data.eloPerRank));
+                localStorage.setItem("eloPerRankTimestamp", Date.now());
+                resolve(data.eloPerRank);
+            });
+        });
+    })();
+};
