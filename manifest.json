@@ -8,10 +8,12 @@
             "js": [
                 "observer-setup.js",
                 "leetify.js",
+                "csstats.js",
                 "matches.js"
             ],
             "matches": [
-                "https://leetify.com/*"
+                "https://leetify.com/*",
+                "https://csstats.gg/*"
             ]
         }
     ]
