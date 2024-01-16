@@ -31,8 +31,8 @@ const KEY = (() => {
 })();
 
 const showPopup = async (key, element) => {
-    const csgorank = await mappings[KEY].getRankFromElo(element);
     if(!hoverTracker[key]) return;
+    const csgorank = await mappings[KEY].getRankFromElo(element);
     const popup = createPopup(csgorank, element);
     mappings[KEY].getPopupParent().appendChild(popup);
     popupTracker[key] = popup;
