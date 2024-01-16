@@ -9,11 +9,13 @@
                 "observer-setup.js",
                 "leetify.js",
                 "csstats.js",
+                "scope.js",
                 "handler.js"
             ],
             "matches": [
                 "https://leetify.com/*",
-                "https://csstats.gg/*"
+                "https://csstats.gg/*",
+                "https://app.scope.gg/*"
             ]
         }
     ]
