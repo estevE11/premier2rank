@@ -1,11 +1,11 @@
 # premier2rank
 
-Chrome extension that on hover any Premier Elo shows the CS:GO Rank Equivalent on [Leetify](https://leetify.com/) and [csstats.gg](https://csstats.gg/).
+Chrome extension that on hover any Premier Elo shows the CS:GO Rank Equivalent on [Leetify](https://leetify.com/), [csstats.gg](https://csstats.gg/) and [Scope.gg](https://scope.gg/).
 
 Getting data from [Where is Global Elite?](https://whereisglobal.vercel.app)
 
 ## TODO:
-- Support Scope.gg.
+- Support Scope.gg match page.
 
 ## Installation from source:
     
