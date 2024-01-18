@@ -18,12 +18,14 @@ const mappings = {
         "containerClass": "cs2rating",
         "getPopupParent": () => document.getElementById("content-wrapper")
     },
+    /*
     "scope": {
         "mainContainerQuery": "#main-layout__wrapper",
         "getRankFromElo": scopeEloToRank,
         "containerClass": "PremierRatingIcon__Container-y0zrk4-0",
         "getPopupParent": () => document.getElementById("main-layout__wrapper")
     },
+    */
 };
 
 const KEY = (() => {
