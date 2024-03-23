@@ -29,7 +29,7 @@ const mappings = {
 };
 
 const KEY = (() => {
-    const url = window.location.href;
+            const url = window.location.href;
     for (let key in mappings) {
         if (url.includes(key)) return key;
     }
@@ -121,7 +121,7 @@ window.onload = async () => {
 
                 if (!shouldUpdate) return resolve(JSON.parse(cached));
             }
-            fetch("https://whereisglobal.vercel.app/api/ranks").then(data => data.json()).then(data => {
+            fetch("https://whereisglobal.com/api/ranks").then(data => data.json()).then(data => {
                 localStorage.setItem("eloPerRank", JSON.stringify(data.eloPerRank));
                 localStorage.setItem("eloPerRankTimestamp", Date.now());
                 resolve(data.eloPerRank);
