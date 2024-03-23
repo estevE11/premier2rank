@@ -3,6 +3,11 @@
     "name": "Premier 2 Rank",
     "description": "Showing CS:GO rank equivalent to CS2 premier elo",
     "version": "1.0",
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
     "content_scripts": [
         {
             "js": [
